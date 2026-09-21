@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planeación Didáctica EF · Programas Sintéticos NEM</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --v1:#1b5e38;--v2:#2e8b57;--v4:#e6f4eb;
+  --n1:#c45200;--n2:#e8720c;--n4:#fff4ec;
+  --a1:#1a3a6b;--a2:#2563ae;--a4:#eaf2ff;
+  --g4:#fefae0;--bg:#f0f4f0;--wh:#fff;
+  --tx:#1a251a;--tx2:#4a5e4a;
+  --r:14px;--sh:0 2px 20px rgba(0,0,0,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#1b5e38 0%,#0d3d22 55%,#1a3a6b 100%);color:#fff;overflow:hidden;position:relative}
+.hdr::before{content:'';position:absolute;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.04);top:-180px;right:-80px}
+.hdr::after{content:'';position:absolute;width:280px;height:180px;border-radius:50%;background:rgba(232,114,12,.13);bottom:-70px;left:32%}
+.hdr-in{max-width:1120px;margin:0 auto;padding:30px 26px 24px;display:flex;align-items:center;gap:18px;position:relative;z-index:2}
+.hdr-ico{width:64px;height:64px;background:rgba(255,255,255,.14);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;border:2px solid rgba(255,255,255,.28);flex-shrink:0}
+.hdr h1{font-family:'Fraunces',serif;font-size:1.75rem;font-weight:900;line-height:1.15;margin-bottom:3px}
+.hdr p{font-size:.86rem;opacity:.8}
+.nem-b{display:inline-flex;align-items:center;gap:6px;background:var(--n2);color:#fff;font-size:.72rem;font-weight:700;padding:3px 11px;border-radius:20px;margin-top:7px;letter-spacing:.5px}
+.sep-b{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.15);color:#fff;font-size:.7rem;padding:3px 10px;border-radius:20px;margin-top:4px;margin-left:6px;border:1px solid rgba(255,255,255,.25)}
+
+/* LAYOUT */
+.wrap{max-width:1120px;margin:0 auto;padding:24px 16px;display:grid;grid-template-columns:318px 1fr;gap:20px}
+
+/* SIDEBAR */
+.sb{display:flex;flex-direction:column;gap:15px}
+.card{background:var(--wh);border-radius:var(--r);padding:18px;box-shadow:var(--sh)}
+.ct{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.1px;color:var(--v1);margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.lbl{display:block;font-size:.78rem;font-weight:600;color:var(--tx2);margin-bottom:4px;margin-top:10px}
+.lbl:first-of-type{margin-top:0}
+select,input[type=text],textarea{width:100%;padding:8px 10px;border:1.5px solid #d5ddd5;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.85rem;color:var(--tx);background:#f8fbf8;outline:none;transition:border-color .2s,box-shadow .2s}
+select:focus,input:focus,textarea:focus{border-color:var(--v2);box-shadow:0 0 0 3px rgba(46,139,87,.12);background:#fff}
+textarea{resize:vertical;min-height:60px;line-height:1.5}
+
+/* FASE INFO BOX */
+.fase-info{background:linear-gradient(135deg,var(--v4),var(--a4));border-radius:10px;padding:12px 14px;border:1px solid rgba(27,94,56,.15);font-size:.8rem;color:var(--v1);line-height:1.5;display:none}
+.fase-info strong{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;color:var(--a2)}
+
+.chkg{display:flex;flex-direction:column;gap:5px}
+.chki{display:flex;align-items:flex-start;gap:7px;font-size:.81rem;color:var(--tx);cursor:pointer;line-height:1.3}
+.chki input{width:14px;height:14px;accent-color:var(--v2);flex-shrink:0;margin-top:2px}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{padding:5px 11px;border-radius:20px;font-size:.76rem;font-weight:600;cursor:pointer;transition:all .2s;border:1.5px solid transparent;line-height:1.3}
+.cv{background:var(--v4);color:var(--v1);border-color:rgba(27,94,56,.18)}
+.cv.on,.cv:hover{background:var(--v1);color:#fff;border-color:var(--v1)}
+.cn{background:var(--n4);color:var(--n1);border-color:rgba(196,82,0,.18)}
+.cn.on,.cn:hover{background:var(--n1);color:#fff;border-color:var(--n1)}
+
+.btn-gen{background:linear-gradient(135deg,var(--v2),var(--v1));color:#fff;border:none;border-radius:11px;padding:13px 18px;font-family:'DM Sans',sans-serif;font-size:.96rem;font-weight:700;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .25s;box-shadow:0 4px 16px rgba(46,139,87,.32)}
+.btn-gen:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 24px rgba(46,139,87,.42)}
+.btn-gen:disabled{opacity:.55;cursor:not-allowed}
+.btn-print{background:#fff;color:var(--a2);border:2px solid var(--a2);border-radius:10px;padding:9px 15px;font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;width:100%;justify-content:center;margin-top:8px}
+.btn-print:hover{background:var(--a2);color:#fff}
+
+/* CONTENT */
+.content{display:flex;flex-direction:column;gap:16px}
+
+/* WELCOME */
+.welcome{background:linear-gradient(135deg,var(--v4),var(--n4));border-radius:var(--r);padding:28px;border:1.5px solid rgba(46,139,87,.14);text-align:center}
+.welcome h2{font-family:'Fraunces',serif;font-size:1.4rem;color:var(--v1);margin-bottom:8px}
+.welcome p{color:var(--tx2);font-size:.89rem;line-height:1.7;max-width:500px;margin:0 auto 15px}
+.fpills{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.fp{background:#fff;border:1.5px solid #d5e5d5;border-radius:20px;padding:4px 12px;font-size:.77rem;font-weight:600;color:var(--v1)}
+
+/* LOADING */
+.ld{display:none;flex-direction:column;align-items:center;padding:52px 20px;text-align:center;background:var(--wh);border-radius:var(--r);box-shadow:var(--sh)}
+.ld.show{display:flex}
+.spin{width:50px;height:50px;border:4px solid #d8eede;border-top-color:var(--v2);border-radius:50%;animation:sp .8s linear infinite;margin-bottom:16px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.ld strong{color:var(--v1);font-size:.97rem;margin-bottom:4px}
+.ld p{color:var(--tx2);font-size:.86rem}
+.progw{width:240px;height:4px;background:#d5eedd;border-radius:10px;margin-top:12px;overflow:hidden}
+.progb{height:100%;background:linear-gradient(90deg,var(--v2),var(--v1));border-radius:10px;transition:width .5s;width:0%}
+
+/* RESULTADO */
+#res{display:none}
+
+/* ENCABEZADO PLANEACION */
+.plan-hdr{background:linear-gradient(135deg,#1b5e38,#0d3d22);color:#fff;border-radius:var(--r);padding:24px 28px;position:relative;overflow:hidden}
+.plan-hdr::after{content:'🏃';position:absolute;right:22px;top:50%;transform:translateY(-50%);font-size:4rem;opacity:.13}
+.plan-hdr h2{font-family:'Fraunces',serif;font-size:1.5rem;margin-bottom:4px}
+.plan-hdr p{opacity:.8;font-size:.87rem}
+.plan-hdr .fase-tag{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);padding:2px 10px;border-radius:12px;font-size:.72rem;font-weight:700;margin-top:8px;letter-spacing:.5px}
+
+/* INFO GRID */
+.ig{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+.ib{background:#fff;border-radius:11px;padding:12px 14px;box-shadow:var(--sh);border-left:4px solid var(--v2)}
+.ib.n{border-left-color:var(--n2)}.ib.a{border-left-color:var(--a2)}
+.ibl{font-size:.66rem;text-transform:uppercase;letter-spacing:.8px;color:var(--tx2);font-weight:700;margin-bottom:3px}
+.ibv{font-size:.86rem;font-weight:600;color:var(--tx);line-height:1.3}
+
+/* CONTENIDOS CURRICULARES REALES */
+.curr-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.curr-box{border-radius:11px;padding:14px 16px}
+.cb-ae{background:linear-gradient(135deg,var(--v4),#f0faf4);border-left:4px solid var(--v2)}
+.cb-co{background:linear-gradient(135deg,var(--n4),#fff9f4);border-left:4px solid var(--n2)}
+.cb-pd{background:linear-gradient(135deg,var(--a4),#f0f6ff);border-left:4px solid var(--a2);grid-column:1/-1}
+.cb-l{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.cb-ae .cb-l{color:var(--v1)}.cb-co .cb-l{color:var(--n1)}.cb-pd .cb-l{color:var(--a1)}
+.curr-box p{font-size:.84rem;color:var(--tx);line-height:1.65}
+.curr-box ul{padding-left:16px;margin-top:5px}
+.curr-box li{font-size:.82rem;color:var(--tx2);line-height:1.6;margin-bottom:2px}
+
+/* FASE BADGE */
+.fasedoc-badge{display:inline-flex;align-items:center;gap:6px;background:var(--v4);color:var(--v1);border:1.5px solid rgba(27,94,56,.2);padding:5px 13px;border-radius:20px;font-size:.77rem;font-weight:700;margin-bottom:4px}
+
+/* TAGS */
+.tags{display:flex;flex-wrap:wrap;gap:6px;padding:13px 16px;background:#fff;border-radius:var(--r);box-shadow:var(--sh)}
+.tag{padding:4px 11px;border-radius:20px;font-size:.74rem;font-weight:600}
+.tv{background:var(--v4);color:var(--v1)}.ta{background:var(--a4);color:var(--a1)}.tn{background:var(--n4);color:var(--n1)}.tg{background:var(--g4);color:#6b5000}
+
+/* SESIONES */
+.seswrap{display:flex;flex-direction:column;gap:20px}
+.ses{background:#fff;border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;border:1.5px solid #dce8dc}
+.seshdr{background:linear-gradient(90deg,var(--v1),var(--v2));color:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px}
+.sesnum{width:40px;height:40px;background:rgba(255,255,255,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;flex-shrink:0;border:2px solid rgba(255,255,255,.32)}
+.seshdr h3{font-family:'Fraunces',serif;font-size:1rem;font-weight:700}
+.seshdr p{font-size:.78rem;opacity:.82}
+.sest{margin-left:auto;background:rgba(255,255,255,.18);padding:4px 10px;border-radius:20px;font-size:.76rem;font-weight:600;white-space:nowrap}
+.sesbody{padding:18px}
+
+/* MOMENTOS */
+.mom{margin-bottom:16px}.mom:last-child{margin-bottom:0}
+.momt{font-size:.71rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;padding:5px 12px;border-radius:6px;display:inline-flex;align-items:center;gap:5px;margin-bottom:10px}
+.mi{background:var(--n4);color:var(--n1)}.md{background:var(--v4);color:var(--v1)}.mc{background:var(--a4);color:var(--a1)}
+
+/* ACTIVIDAD */
+.act{display:grid;grid-template-columns:1fr 252px;gap:13px;margin-bottom:12px;padding:13px;background:#f7fbf7;border-radius:10px;border:1px solid #e2ebe2;align-items:start}
+.aico{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;margin-bottom:6px}
+.aiv{background:var(--v4)}.ain{background:var(--n4)}.aia{background:var(--a4)}
+.act h4{font-size:.86rem;font-weight:700;color:var(--tx);margin-bottom:4px}
+.act p.desc{font-size:.81rem;color:var(--tx2);line-height:1.55}
+.tbg{display:inline-block;background:#dde8dd;color:var(--tx2);font-size:.69rem;padding:2px 8px;border-radius:9px;font-weight:600;margin-top:5px}
+.mats{background:var(--a4);border-radius:7px;padding:7px 10px;margin-top:7px;display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.mats strong{font-size:.74rem;color:var(--a2)}
+.matt{background:#fff;color:var(--a2);padding:2px 8px;border-radius:9px;font-size:.73rem;font-weight:600;border:1px solid rgba(37,99,174,.2)}
+
+/* IMAGEN SVG */
+.actimg{border-radius:9px;overflow:hidden;background:linear-gradient(135deg,var(--v4),var(--a4));border:1.5px solid #cddacd;min-height:172px;display:flex;align-items:center;justify-content:center}
+.actimg svg{width:100%;height:auto;display:block}
+.imgld{display:flex;flex-direction:column;align-items:center;gap:7px;padding:18px;text-align:center}
+.mspin{width:24px;height:24px;border:3px solid #cddacd;border-top-color:var(--v2);border-radius:50%;animation:sp .65s linear infinite}
+.imgld p{font-size:.72rem;color:var(--tx2)}
+
+/* EVALUACION */
+.eval{background:linear-gradient(90deg,var(--g4),#fffbee);border:1.5px solid rgba(245,197,24,.28);border-radius:9px;padding:11px 14px;margin-top:12px;display:flex;align-items:flex-start;gap:9px}
+.eval .ico{font-size:1.2rem}
+.eval h4{font-size:.8rem;font-weight:700;color:#6b5000;margin-bottom:2px}
+.eval p{font-size:.79rem;color:var(--tx2);line-height:1.5}
+
+/* PROCESO APRENDIZAJE */
+.proc-box{background:linear-gradient(90deg,#f0f6ff,#eaf2ff);border-left:3px solid var(--a2);border-radius:0 9px 9px 0;padding:10px 13px;margin-top:10px}
+.proc-box .lb{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--a2);margin-bottom:3px}
+.proc-box p{font-size:.79rem;color:#1a2a4a;line-height:1.55}
+
+.err{background:#fdf0f0;border:1.5px solid rgba(192,57,43,.22);border-radius:var(--r);padding:20px;color:#c0392b;text-align:center}
+
+@media(max-width:860px){
+  .wrap{grid-template-columns:1fr}
+  .ig{grid-template-columns:1fr 1fr}
+  .curr-grid{grid-template-columns:1fr}
+  .curr-box.cb-pd{grid-column:1}
+  .act{grid-template-columns:1fr}
+}
+@media print{
+  .hdr,.sb,.btn-print,.btn-gen{display:none!important}
+  .wrap{grid-template-columns:1fr;padding:0}
+  .ses{break-inside:avoid}
+  .act{grid-template-columns:1fr 200px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-in">
+    <div class="hdr-ico">🏃</div>
+    <div>
+      <h1>Asistente de Planeación Didáctica</h1>
+      <p>Educación Física · Campo Formativo: De lo Humano y lo Comunitario</p>
+      <span class="nem-b">📚 Nueva Escuela Mexicana 2022</span>
+      <span class="sep-b">🏛️ Programas Sintéticos Fases 2–6 SEP</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<!-- SIDEBAR -->
+<aside class="sb">
+  <div class="card">
+    <div class="ct"><span>📋</span> Datos Generales</div>
+
+    <label class="lbl">Fase educativa (Programa Sintético SEP)</label>
+    <select id="fase" onchange="updateFaseInfo()">
+      <option value="2">Fase 2 · Preescolar (1°, 2° y 3° preescolar)</option>
+      <option value="3">Fase 3 · Primaria baja (1° y 2° primaria)</option>
+      <option value="4" selected>Fase 4 · Primaria media (3° y 4° primaria)</option>
+      <option value="5">Fase 5 · Primaria alta (5° y 6° primaria)</option>
+      <option value="6">Fase 6 · Secundaria (1°, 2° y 3° secundaria)</option>
+    </select>
+
+    <div class="fase-info" id="faseInfo"></div>
+
+    <label class="lbl">Grado específico</label>
+    <select id="grado">
+      <option value="3er grado" selected>3er grado</option>
+      <option value="4to grado">4to grado</option>
+    </select>
+
+    <label class="lbl">Período</label>
+    <select id="periodo">
+      <option value="Período 1 (agosto–octubre)">Período 1 · Ago–Oct</option>
+      <option value="Período 2 (noviembre–enero)">Período 2 · Nov–Ene</option>
+      <option value="Período 3 (febrero–abril)" selected>Período 3 · Feb–Abr</option>
+      <option value="Período 4 (mayo–julio)">Período 4 · May–Jul</option>
+    </select>
+
+    <label class="lbl">Duración de sesión</label>
+    <select id="duracion">
+      <option value="45 minutos">45 minutos</option>
+      <option value="50 minutos" selected>50 minutos</option>
+      <option value="60 minutos">60 minutos</option>
+    </select>
+
+    <label class="lbl">Tipo de planeación</label>
+    <select id="tipo">
+      <option value="proyecto">Proyecto didáctico</option>
+      <option value="secuencia" selected>Secuencia didáctica</option>
+    </select>
+
+    <label class="lbl">Tema o contexto central</label>
+    <input type="text" id="tema" placeholder="Ej: Juegos cooperativos y habilidades motrices">
+  </div>
+
+  <div class="card">
+    <div class="ct"><span>🔗</span> Ejes Articuladores</div>
+    <div class="chkg" id="ejesArt">
+      <label class="chki"><input type="checkbox" value="Inclusión" checked> Inclusión</label>
+      <label class="chki"><input type="checkbox" value="Pensamiento crítico"> Pensamiento crítico</label>
+      <label class="chki"><input type="checkbox" value="Interculturalidad crítica" checked> Interculturalidad crítica</label>
+      <label class="chki"><input type="checkbox" value="Igualdad de género"> Igualdad de género</label>
+      <label class="chki"><input type="checkbox" value="Vida saludable" checked> Vida saludable</label>
+      <label class="chki"><input type="checkbox" value="Artes y experiencias estéticas"> Artes y experiencias estéticas</label>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct"><span>🎯</span> Ejes Pedagógicos EF</div>
+    <div class="chkg" id="ejesPed">
+      <label class="chki"><input type="checkbox" value="La corporeidad como centro de la acción educativa" checked> Corporeidad como centro</label>
+      <label class="chki"><input type="checkbox" value="El papel de la motricidad y la acción motriz" checked> Motricidad y acción motriz</label>
+      <label class="chki"><input type="checkbox" value="La educación física y el deporte escolar"> EF y deporte escolar</label>
+      <label class="chki"><input type="checkbox" value="El tacto pedagógico y el profesional reflexivo" checked> Tacto pedagógico</label>
+      <label class="chki"><input type="checkbox" value="Valores, género e interculturalidad"> Valores, género e interculturalidad</label>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct"><span>⚡</span> Competencias Específicas EF</div>
+    <div class="chips" id="comps">
+      <span class="chip cv on" onclick="this.classList.toggle('on')">Manifestación global de la corporeidad</span>
+      <span class="chip cv" onclick="this.classList.toggle('on')">Expresión y desarrollo de habilidades motrices</span>
+      <span class="chip cv" onclick="this.classList.toggle('on')">Control de la motricidad para la acción creativa</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct"><span>🏅</span> Ámbitos de Intervención</div>
+    <div class="chips" id="ambitos">
+      <span class="chip cn on" onclick="this.classList.toggle('on')">Ludo y sociomotricidad</span>
+      <span class="chip cn" onclick="this.classList.toggle('on')">Promoción de la salud</span>
+      <span class="chip cn" onclick="this.classList.toggle('on')">Competencia motriz</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct"><span>📝</span> Notas del docente</div>
+    <textarea id="notas" placeholder="Contexto del grupo, recursos disponibles, necesidades específicas..."></textarea>
+  </div>
+
+  <button class="btn-gen" id="btnGen" onclick="iniciar()">
+    <span>✨</span> Generar Planeación Didáctica
+  </button>
+  <button class="btn-print" id="btnPrint" style="display:none" onclick="window.print()">
+    🖨️ Imprimir / Guardar PDF
+  </button>
+</aside>
+
+<!-- CONTENT -->
+<main class="content">
+  <div class="welcome" id="welcome">
+    <h2>Planeación Didáctica basada en Programas Sintéticos 🎽</h2>
+    <p>Selecciona la <strong>Fase educativa</strong> según el Programa Sintético SEP (Fases 2–6). El asistente usará los <strong>contenidos y procesos de desarrollo de aprendizaje reales</strong> del campo <em>De lo Humano y lo Comunitario</em> para generar 5 sesiones completas con ilustraciones para cada actividad.</p>
+    <div class="fpills">
+      <span class="fp">📚 Fases 2–6 SEP 2024</span>
+      <span class="fp">🔄 5 Sesiones completas</span>
+      <span class="fp">🎨 Ilustraciones IA</span>
+      <span class="fp">📌 Contenidos reales del Programa Sintético</span>
+      <span class="fp">📊 Evaluación formativa</span>
+      <span class="fp">🖨️ Imprimible</span>
+    </div>
+  </div>
+  <div class="ld" id="ld">
+    <div class="spin"></div>
+    <strong>Generando planeación...</strong>
+    <p id="ldMsg">Consultando Programa Sintético...</p>
+    <div class="progw"><div class="progb" id="pb"></div></div>
+  </div>
+  <div id="res"></div>
+</main>
+</div>
+
+<script>
+// ─── DATOS DE FASES (extraídos de los Programas Sintéticos SEP 2024) ────────────
+const FASES = {
+  "2": {
+    label: "Fase 2 · Preescolar (1°, 2° y 3° preescolar)",
+    nivel: "Preescolar",
+    grados: ["1er grado preescolar","2do grado preescolar","3er grado preescolar"],
+    descripcion: "Fase inicial de educación formal. El cuerpo, el movimiento y el juego son los ejes centrales del aprendizaje.",
+    campo_ef: "De lo Humano y lo Comunitario",
+    contenidos_ef: [
+      "Capacidades y habilidades motrices básicas (correr, saltar, lanzar, trepar, rodar)",
+      "Posibilidades cognitivas, expresivas, motrices y creativas del cuerpo",
+      "Estilos de vida activos y saludables: hábitos de higiene, alimentación y actividad física",
+      "Pensamiento lúdico, divergente y creativo mediante el juego libre y dirigido",
+      "Interacción motriz con pares: juegos de roles, juegos simbólicos y juegos colectivos",
+      "Acciones individuales que repercuten en la conservación y mejora de la salud",
+      "Sentido de comunidad y satisfacción de necesidades básicas a través del movimiento",
+      "Situaciones de riesgo social en el juego: normas básicas de seguridad"
+    ],
+    procesos: [
+      "Explora, experimenta y reconoce las posibilidades de movimiento de su cuerpo",
+      "Participa en juegos motores y actividades que implican diferentes formas de moverse",
+      "Reconoce las partes de su cuerpo y sus funciones a través del movimiento",
+      "Identifica sensaciones corporales y emociones vinculadas al juego y la actividad física",
+      "Colabora con compañeros en actividades motrices colectivas con normas básicas"
+    ]
+  },
+  "3": {
+    label: "Fase 3 · Primaria baja (1° y 2° primaria)",
+    nivel: "Primaria – 1° y 2° grado",
+    grados: ["1er grado","2do grado"],
+    descripcion: "Primeros grados de primaria. Se profundiza en habilidades motrices básicas y se introduce la dimensión social del movimiento.",
+    campo_ef: "De lo Humano y lo Comunitario",
+    contenidos_ef: [
+      "Capacidades y habilidades motrices: coordinación, equilibrio, lateralidad, ritmo",
+      "Posibilidades cognitivas, expresivas, motrices, creativas y de relación",
+      "Estilos de vida activos y saludables: beneficios de la actividad física y alimentación",
+      "Pensamiento lúdico, divergente y creativo en el juego reglado y libre",
+      "Interacción motriz: juegos cooperativos y competitivos con normas básicas",
+      "Acciones individuales que repercuten en la conservación y mejora de la salud",
+      "Sentido de comunidad y satisfacción de necesidades humanas a través del deporte",
+      "Responsabilidad compartida en el cuidado de sí y del entorno en actividades motrices"
+    ],
+    procesos: [
+      "Desarrolla habilidades motrices básicas (correr, saltar, lanzar, atrapar) con mayor precisión",
+      "Participa activamente en juegos que implican reglas sencillas respetando a sus compañeros",
+      "Relaciona la actividad física con el bienestar y la salud personal",
+      "Utiliza el cuerpo como medio de expresión y comunicación en actividades lúdicas",
+      "Colabora y negocia con compañeros para participar en actividades motrices colectivas"
+    ]
+  },
+  "4": {
+    label: "Fase 4 · Primaria media (3° y 4° primaria)",
+    nivel: "Primaria – 3° y 4° grado",
+    grados: ["3er grado","4to grado"],
+    descripcion: "Nivel intermedio de primaria. Se consolidan habilidades motrices y se avanza hacia actividades deportivas y de cooperación compleja.",
+    campo_ef: "De lo Humano y lo Comunitario",
+    contenidos_ef: [
+      "Capacidades y habilidades motrices: velocidad, fuerza, resistencia, flexibilidad y coordinación compleja",
+      "Posibilidades cognitivas, expresivas, motrices y creativas: exploración táctica y estratégica",
+      "Estilos de vida activos y saludables: actividad física, alimentación y descanso como triada de salud",
+      "Pensamiento lúdico, divergente y creativo: invención y modificación de juegos y reglas",
+      "Interacción motriz: juegos y deportes adaptados con énfasis en cooperación y respeto",
+      "Equidad de género en las familias, la escuela y la comunidad reflejada en la práctica deportiva",
+      "Efectos en la vida de las personas derivados de cambios culturales en el deporte y la actividad física",
+      "Educación Integral en Sexualidad vinculada al cuidado del cuerpo y la corporeidad",
+      "Reconocimiento de las necesidades y características propias y de las demás personas en el juego",
+      "Sentido de pertenencia, identidad personal y social a través de actividades culturales y deportivas"
+    ],
+    procesos: [
+      "Aplica habilidades motrices combinadas en situaciones de juego y deporte con mayor complejidad táctica",
+      "Propone y adapta reglas en juegos colectivos promoviendo la equidad entre niñas y niños",
+      "Relaciona estilos de vida activos con la prevención de enfermedades y el bienestar comunitario",
+      "Reconoce y valora la diversidad corporal y motriz de sus compañeros, evitando la discriminación",
+      "Trabaja en equipo con roles definidos aplicando estrategias básicas de cooperación y comunicación"
+    ]
+  },
+  "5": {
+    label: "Fase 5 · Primaria alta (5° y 6° primaria)",
+    nivel: "Primaria – 5° y 6° grado",
+    grados: ["5to grado","6to grado"],
+    descripcion: "Últimos grados de primaria. Se profundiza en el pensamiento táctico, el autoconocimiento corporal y la autonomía en la práctica deportiva.",
+    campo_ef: "De lo Humano y lo Comunitario",
+    contenidos_ef: [
+      "Capacidades y habilidades motrices avanzadas: resistencia aeróbica, fuerza explosiva, precisión motriz",
+      "Posibilidades cognitivas, expresivas y creativas del cuerpo: danza, expresión corporal y juego dramático",
+      "Estilos de vida activos y saludables: dieta correcta, actividad física sistemática y salud mental",
+      "Pensamiento lúdico, divergente y creativo: diseño de proyectos lúdico-deportivos comunitarios",
+      "Las familias como espacio para el desarrollo del sentido de pertenencia y autonomía en la actividad física",
+      "Alternativas ante conflictos y problemas de la vida en la comunidad deportiva",
+      "La comunidad como espacio para el aprendizaje y el bienestar común: deporte comunitario",
+      "Formas de ser, pensar, actuar y relacionarse en la práctica deportiva intercultural",
+      "Construcción del proyecto de vida vinculado a hábitos de actividad física permanentes",
+      "Derechos humanos: a un ambiente sano y a la práctica del deporte como derecho fundamental"
+    ],
+    procesos: [
+      "Diseña y ejecuta secuencias motrices con mayor autonomía integrando habilidades técnicas y tácticas",
+      "Analiza críticamente situaciones de juego para tomar decisiones colectivas más eficaces",
+      "Relaciona la práctica de actividad física sistemática con la calidad de vida y el proyecto personal",
+      "Valora y promueve el deporte comunitario e intercultural como espacio de convivencia",
+      "Reflexiona sobre la equidad de género y la inclusión en todas las prácticas deportivas y motrices"
+    ]
+  },
+  "6": {
+    label: "Fase 6 · Secundaria (1°, 2° y 3° secundaria)",
+    nivel: "Secundaria",
+    grados: ["1er grado","2do grado","3er grado"],
+    descripcion: "Educación secundaria. Perspectiva crítica del deporte, la salud y el cuerpo en relación con la identidad adolescente y la vida comunitaria.",
+    campo_ef: "De lo Humano y lo Comunitario",
+    contenidos_ef: [
+      "Capacidades y habilidades motrices especializadas: deportes individuales y colectivos, actividades alternativas",
+      "Corporeidad crítica: imagen corporal, autoestima, diversidad y derechos en la práctica motriz",
+      "Estilos de vida activos y saludables: actividad física, nutrición, salud mental y sustentabilidad",
+      "Pensamiento lúdico y deporte escolar: organización, arbitraje y participación democrática",
+      "Salud integral del adolescente: cambios en la pubertad, sexualidad y actividad física",
+      "Alternativas ante conflictos en la comunidad deportiva: mediación y cultura de paz",
+      "Derechos humanos y deporte: igualdad de género, inclusión de personas con discapacidad",
+      "Construcción del proyecto de vida activo y saludable como derecho y responsabilidad social",
+      "Interculturalidad en el deporte: juegos tradicionales, prácticas motrices de pueblos originarios",
+      "Tutoría y educación socioemocional: identidad, autoconocimiento y manejo emocional en el deporte"
+    ],
+    procesos: [
+      "Analiza críticamente la práctica deportiva y su relación con la identidad, el género y la cultura",
+      "Diseña y ejecuta proyectos de actividad física con impacto comunitario",
+      "Aplica principios de entrenamiento básico para el desarrollo de capacidades físicas personales",
+      "Promueve la inclusión, el respeto y la equidad en todas las actividades físicas y deportivas",
+      "Relaciona la práctica motriz sistemática con la salud integral y el proyecto de vida adolescente"
+    ]
+  }
+};
+
+// ─── HELPERS ──────────────────────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+const checked = id => [...document.querySelectorAll('#'+id+' input:checked')].map(c=>c.value);
+const activeChips = id => [...document.querySelectorAll('#'+id+' .on')].map(c=>c.textContent.trim());
+const setP = (p,m) => { $('pb').style.width=p+'%'; $('ldMsg').textContent=m; };
+
+function updateFaseInfo(){
+  const f = FASES[$('fase').value];
+  const fi = $('faseInfo');
+  fi.style.display = 'block';
+  fi.innerHTML = `<strong>📄 ${f.label}</strong>${f.descripcion}`;
+  // update grades
+  const g = $('grado');
+  g.innerHTML = f.grados.map(gr=>`<option value="${gr}">${gr}</option>`).join('');
+}
+
+// Inicializar al cargar
+window.onload = updateFaseInfo;
+
+function getFaseData(){
+  return FASES[$('fase').value];
+}
+
+// ─── API ───────────────────────────────────────────────────────────────────────
+async function callApi(prompt, maxT=7000){
+  const r = await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:maxT,
+      messages:[{role:'user',content:prompt}]})
+  });
+  const d = await r.json();
+  if(d.error) throw new Error(d.error.message);
+  let t = d.content.map(i=>i.text||'').join('');
+  t = t.replace(/^```(?:json)?\s*/m,'').replace(/\s*```\s*$/m,'').trim();
+  return JSON.parse(t);
+}
+async function callRaw(prompt, maxT=2000){
+  const r = await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:maxT,
+      messages:[{role:'user',content:prompt}]})
+  });
+  const d = await r.json();
+  if(d.error) throw new Error(d.error.message);
+  return d.content.map(i=>i.text||'').join('').trim();
+}
+
+// ─── META ──────────────────────────────────────────────────────────────────────
+function getMeta(){
+  const fase = $('fase').value;
+  const f = FASES[fase];
+  return {
+    fase, faseData: f,
+    nivelLabel: f.nivel,
+    faseLabel: f.label,
+    grado: $('grado').value,
+    periodo: $('periodo').value,
+    duracion: $('duracion').value,
+    tipo: $('tipo').value==='proyecto'?'Proyecto didáctico':'Secuencia didáctica',
+    tema: $('tema').value||'Juegos cooperativos y habilidades motrices',
+    notas: $('notas').value||'Ninguna',
+    ejesArt: checked('ejesArt'),
+    ejesPed: checked('ejesPed'),
+    comps: activeChips('comps'),
+    ambitos: activeChips('ambitos'),
+  };
+}
+
+function ctxStr(m){
+  const f = m.faseData;
+  return `PROGRAMA SINTÉTICO SEP 2024 – ${m.faseLabel}
+Grado: ${m.grado} | Período: ${m.periodo} | Duración sesión: ${m.duracion}
+Tipo planeación: ${m.tipo} | Tema central: ${m.tema}
+Campo formativo: De lo Humano y lo Comunitario
+Contenidos EF del Programa Sintético:
+${f.contenidos_ef.map((c,i)=>`${i+1}. ${c}`).join('\n')}
+Procesos de desarrollo de aprendizaje:
+${f.procesos.map((p,i)=>`${i+1}. ${p}`).join('\n')}
+Ejes articuladores: ${m.ejesArt.join(', ')||'Inclusión, Vida saludable'}
+Ejes pedagógicos: ${m.ejesPed.join(', ')||'Corporeidad, Motricidad'}
+Competencias EF: ${m.comps.join(', ')||'Manifestación global de la corporeidad'}
+Ámbitos: ${m.ambitos.join(', ')||'Ludo y sociomotricidad'}
+Notas: ${m.notas}`;
+}
+
+// ─── PROMPTS ───────────────────────────────────────────────────────────────────
+function pEncabezado(m){
+  return `Eres especialista en Educación Física NEM 2022. Usa EXACTAMENTE los contenidos del Programa Sintético indicado. SOLO JSON sin texto extra.
+${ctxStr(m)}
+Genera: {"titulo":"título creativo de la planeación","subtitulo":"subtítulo descriptivo","aprendizaje_esperado":"aprendizaje esperado específico derivado de los Procesos de desarrollo de aprendizaje del Programa Sintético para EF en ${m.faseLabel}, ${m.grado}, relacionado con el tema '${m.tema}'","contenidos_seleccionados":["contenido 1 del Programa Sintético seleccionado","contenido 2","contenido 3"],"proceso_desarrollo":"proceso de desarrollo de aprendizaje principal del Programa Sintético aplicado en esta planeación","proposito":"propósito general de las 5 sesiones redactado en lenguaje NEM"}`;
+}
+
+function pSesiones(m, nums, titulo){
+  const tpl = nums.map(n=>`{"numero":${n},"titulo":"string","proposito":"string relacionado con el Programa Sintético","inicio":{"actividades":[{"nombre":"nombre actividad","descripcion":"instrucciones claras al docente 2-3 oraciones vinculando con el contenido del Programa Sintético","tiempo":"Xmin","emoji":"emoji","materiales":["mat"]}]},"desarrollo":{"actividades":[{"nombre":"str","descripcion":"instrucciones paso a paso 3-4 oraciones con variantes inclusivas. Vincular explícitamente con los contenidos del Programa Sintético","tiempo":"Xmin","emoji":"emoji","materiales":["mat"]},{"nombre":"str","descripcion":"2-3 oraciones","tiempo":"Xmin","emoji":"emoji","materiales":[]}]},"cierre":{"actividades":[{"nombre":"str","descripcion":"reflexión metacognitiva 2 oraciones vinculada con procesos de desarrollo de aprendizaje","tiempo":"Xmin","emoji":"emoji","materiales":[]}]},"evaluacion":"criterio de evaluación formativa vinculado al proceso de desarrollo de aprendizaje del Programa Sintético","proceso_sesion":"proceso de desarrollo de aprendizaje específico del Programa Sintético aplicado en esta sesión"}`).join(',');
+  return `Experto EF NEM 2022. SOLO JSON. Planeación:"${titulo}". Tiempos deben sumar ${m.duracion}.
+${ctxStr(m)}
+{"sesiones":[${tpl}]}`;
+}
+
+// ─── SVG ───────────────────────────────────────────────────────────────────────
+async function genSVG(nombre, desc, momento){
+  const pal = momento==='inicio'
+    ? {bg:'#fff4ec',c1:'#e8720c',c2:'#c45200',c3:'#ffd3a8'}
+    : momento==='desarrollo'
+    ? {bg:'#e6f4eb',c1:'#2e8b57',c2:'#1b5e38',c3:'#a8d5b5'}
+    : {bg:'#eaf2ff',c1:'#2563ae',c2:'#1a3a6b',c3:'#bdd5f5'};
+
+  const p = `Genera ÚNICAMENTE código SVG (sin DOCTYPE, sin encabezado XML, sin comentarios) para ilustrar esta actividad de educación física escolar.
+
+ACTIVIDAD: "${nombre}"
+DESCRIPCIÓN BREVE: "${desc.substring(0,200)}"
+FONDO: ${pal.bg} | COLOR PRINCIPAL: ${pal.c1} | SECUNDARIO: ${pal.c2} | ACENTO: ${pal.c3}
+
+OBLIGATORIO:
+- <svg viewBox="0 0 280 180" xmlns="http://www.w3.org/2000/svg">
+- Rectángulo de fondo con fill="${pal.bg}" rx="6"
+- 2–3 figuras humanas estilizadas en MOVIMIENTO ACTIVO realizando exactamente la actividad
+- Cada figura: círculo (cabeza), líneas/rects (cuerpo, brazos y piernas) en postura dinámica
+- Color piel: #F5C5A0, ropa: ${pal.c1} y ${pal.c3}
+- Elementos del entorno apropiados (pelota, aro, cono, cuerda, colchoneta, canasta etc.)
+- Líneas de trayectoria/movimiento donde sea pertinente
+- Texto inferior con nombre corto de actividad (≤18 chars, font-size 8, fill="${pal.c2}")
+- Usa círculos, elipses, líneas, paths y rectángulos. SIN imágenes externas
+Responde SOLO con el SVG, empezando con <svg y terminando con </svg>`;
+
+  const raw = await callRaw(p, 1800);
+  const m2 = raw.match(/<svg[\s\S]*?<\/svg>/i);
+  return m2 ? m2[0] : null;
+}
+
+function svgFallback(momento){
+  const e = momento==='inicio'?['#fff4ec','#e8720c','🌅']:momento==='desarrollo'?['#e6f4eb','#2e8b57','🏃']:['#eaf2ff','#2563ae','💬'];
+  return `<svg viewBox="0 0 280 180" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="180" fill="${e[0]}" rx="6"/><text x="140" y="98" text-anchor="middle" font-size="44" opacity=".25">${e[2]}</text><text x="140" y="158" text-anchor="middle" fill="${e[1]}" font-size="9" opacity=".5" font-family="sans-serif">Actividad EF</text></svg>`;
+}
+
+function imgPlaceholder(momento){
+  const c = momento==='inicio'?'#e8720c':momento==='desarrollo'?'#2e8b57':'#2563ae';
+  return `<div class="imgld"><div class="mspin"></div><p style="color:${c}">Generando ilustración...</p></div>`;
+}
+
+// ─── RENDER ────────────────────────────────────────────────────────────────────
+function renderAct(act, momento, idx){
+  const ic = momento==='inicio'?'ain':momento==='desarrollo'?'aiv':'aia';
+  const mats = act.materiales&&act.materiales.length
+    ? `<div class="mats"><strong>📦</strong>${act.materiales.map(m=>`<span class="matt">${m}</span>`).join('')}</div>` : '';
+  return `<div class="act" id="act${idx}">
+  <div>
+    <div class="aico ${ic}">${act.emoji||'⚡'}</div>
+    <h4>${act.nombre}</h4>
+    <p class="desc">${act.descripcion}</p>
+    <span class="tbg">⏱ ${act.tiempo}</span>
+    ${mats}
+  </div>
+  <div class="actimg" id="img${idx}">${imgPlaceholder(momento)}</div>
+</div>`;
+}
+
+function renderSesion(ses, meta, ctr){
+  const proc = ses.proceso_sesion
+    ? `<div class="proc-box"><div class="lb">🔍 Proceso de Desarrollo de Aprendizaje</div><p>${ses.proceso_sesion}</p></div>` : '';
+  let h = `<div class="ses">
+  <div class="seshdr">
+    <div class="sesnum">${ses.numero}</div>
+    <div><h3>${ses.titulo}</h3><p>${ses.proposito}</p></div>
+    <span class="sest">⏱ ${meta.duracion}</span>
+  </div>
+  <div class="sesbody">
+    ${proc}
+    <div class="mom"><div class="momt mi">🌅 Inicio – Activación y encuadre</div>`;
+  ses.inicio.actividades.forEach(a=>{ h+=renderAct(a,'inicio',ctr.v++); });
+  h+=`</div><div class="mom"><div class="momt md">🏃 Desarrollo – Actividad central</div>`;
+  ses.desarrollo.actividades.forEach(a=>{ h+=renderAct(a,'desarrollo',ctr.v++); });
+  h+=`</div><div class="mom"><div class="momt mc">🌙 Cierre – Reflexión y metacognición</div>`;
+  ses.cierre.actividades.forEach(a=>{ h+=renderAct(a,'cierre',ctr.v++); });
+  h+=`</div><div class="eval"><span class="ico">📊</span><div><h4>Evaluación formativa</h4><p>${ses.evaluacion}</p></div></div>
+  </div></div>`;
+  return h;
+}
+
+function renderPlan(plan, meta){
+  const f = meta.faseData;
+  const et=meta.ejesArt.map(e=>`<span class="tag tv">🔗 ${e}</span>`).join('');
+  const pt=meta.ejesPed.map(e=>`<span class="tag ta">🎯 ${e}</span>`).join('');
+  const ct2=meta.comps.map(c=>`<span class="tag tg">⚡ ${c}</span>`).join('');
+  const at=meta.ambitos.map(a=>`<span class="tag tn">🏅 ${a}</span>`).join('');
+
+  const coSel = Array.isArray(plan.contenidos_seleccionados)
+    ? plan.contenidos_seleccionados.map(c=>`<li>${c}</li>`).join('')
+    : '';
+
+  let h = `
+    <div class="plan-hdr">
+      <h2>${plan.titulo}</h2>
+      <p>${plan.subtitulo}</p>
+      <span class="fase-tag">📄 ${meta.faseLabel} · ${meta.grado}</span>
+    </div>
+
+    <div class="ig">
+      <div class="ib"><div class="ibl">Nivel educativo</div><div class="ibv">${meta.nivelLabel}</div></div>
+      <div class="ib n"><div class="ibl">Grado · Período</div><div class="ibv">${meta.grado} · ${meta.periodo}</div></div>
+      <div class="ib a"><div class="ibl">Tipo · Duración</div><div class="ibv">${meta.tipo} · ${meta.duracion}</div></div>
+    </div>
+
+    <div class="fasedoc-badge">📄 Programa Sintético ${meta.faseLabel} · Campo: De lo Humano y lo Comunitario · SEP 2024</div>
+
+    <div class="curr-grid">
+      <div class="curr-box cb-ae">
+        <div class="cb-l">📌 Aprendizaje Esperado</div>
+        <p>${plan.aprendizaje_esperado}</p>
+      </div>
+      <div class="curr-box cb-co">
+        <div class="cb-l">📖 Contenidos del Programa Sintético</div>
+        <ul>${coSel||`<li>${f.contenidos_ef.slice(0,3).join('</li><li>')}</li>`}</ul>
+      </div>
+      <div class="curr-box cb-pd">
+        <div class="cb-l">🔍 Proceso de Desarrollo de Aprendizaje (Programa Sintético)</div>
+        <p>${plan.proceso_desarrollo||f.procesos[0]}</p>
+      </div>
+    </div>
+
+    <div class="tags">${et}${pt}${ct2}${at}</div>
+
+    <div class="curr-box cb-ae" style="background:linear-gradient(90deg,#e6f4eb,#f0faf4);border-left:4px solid #2e8b57;border-radius:11px;padding:14px 16px">
+      <div class="cb-l" style="color:#1b5e38">🌟 Propósito General</div>
+      <p>${plan.proposito}</p>
+    </div>
+
+    <div class="seswrap">`;
+
+  const ctr={v:0};
+  plan.sesiones.forEach(s=>{ h+=renderSesion(s,meta,ctr); });
+  h+=`</div>`;
+  $('res').innerHTML=h;
+}
+
+// ─── IMÁGENES ASYNC ────────────────────────────────────────────────────────────
+async function cargarImagenes(plan){
+  const all=[];
+  plan.sesiones.forEach(s=>{
+    s.inicio.actividades.forEach(a=>all.push({...a,momento:'inicio'}));
+    s.desarrollo.actividades.forEach(a=>all.push({...a,momento:'desarrollo'}));
+    s.cierre.actividades.forEach(a=>all.push({...a,momento:'cierre'}));
+  });
+  for(let i=0;i<all.length;i++){
+    const act=all[i];
+    const el=$('img'+i);
+    if(!el) continue;
+    $('btnGen').textContent=`🎨 Ilustraciones ${i+1}/${all.length}...`;
+    try{
+      const svg=await genSVG(act.nombre,act.descripcion,act.momento);
+      el.innerHTML = svg||svgFallback(act.momento);
+    }catch(e){ el.innerHTML=svgFallback(act.momento); }
+  }
+}
+
+// ─── MAIN ───────────────────────────────────────────────────────────────────────
+async function iniciar(){
+  const meta=getMeta();
+  $('welcome').style.display='none';
+  $('res').style.display='none';
+  $('ld').classList.add('show');
+  $('btnGen').disabled=true;
+  setP(5,'Consultando Programa Sintético '+meta.faseLabel+'...');
+
+  try{
+    setP(12,'Generando aprendizaje esperado y contenidos del Programa Sintético...');
+    const enc = await callApi(pEncabezado(meta), 1800);
+
+    setP(28,'Generando sesiones 1, 2 y 3...');
+    const p1 = await callApi(pSesiones(meta,[1,2,3],enc.titulo), 7000);
+
+    setP(54,'Generando sesiones 4 y 5...');
+    const p2 = await callApi(pSesiones(meta,[4,5],enc.titulo), 5000);
+
+    const plan = {...enc, sesiones:[...(p1.sesiones||[]),...(p2.sesiones||[])]};
+
+    setP(74,'Construyendo planeación...');
+    renderPlan(plan,meta);
+
+    $('ld').classList.remove('show');
+    $('res').style.display='block';
+    $('res').scrollIntoView({behavior:'smooth'});
+
+    await cargarImagenes(plan);
+
+    $('btnGen').innerHTML='<span>✨</span> Regenerar Planeación';
+    $('btnGen').disabled=false;
+    $('btnPrint').style.display='flex';
+
+  }catch(err){
+    $('ld').classList.remove('show');
+    $('res').style.display='block';
+    $('res').innerHTML=`<div class="err"><p style="font-size:1.3rem;margin-bottom:8px">⚠️</p><strong>Error al generar</strong><p style="margin-top:5px;font-size:.83rem">${err.message}</p></div>`;
+    $('btnGen').innerHTML='<span>✨</span> Generar Planeación Didáctica';
+    $('btnGen').disabled=false;
+  }
+}
+</script>
+</body>
+</html>
